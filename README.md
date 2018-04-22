@@ -12,4 +12,4 @@ Currently deployed [here](http://eldewrito-serverbrowser.s3-website-us-east-1.am
 3. Allows you to filter by pressing the table headers (even though the cursor doesn't turn into a hand)
 4. Doesn't crash! (often)
 
-Extra credit goes to @scooterpsu, [whose code](https://github.com/scooterpsu/scooterpsu.github.io) I've based this project from.
+Mad props go to @scooterpsu, [whose code](https://github.com/scooterpsu/scooterpsu.github.io) I've based this project from.
