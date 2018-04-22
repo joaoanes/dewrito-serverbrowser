@@ -1,45 +1,58 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { getServerStatus } from '../redux/servers'
 
 class ServerRow extends Component {
   props: {
-    server: Object, //TODO: type
+    server: Object, // TODO: type
   }
-  componentDidMount() {
+  componentDidMount () {
     const { server, getServer } = this.props
     if (!server.port) {
       getServer()
     }
   }
 
-  render() {
-    const { port, name, hostPlayer, map, numPlayers, maxPlayers, ping } = this.props.server
+  render () {
+    const { passworded, port, name, hostPlayer, map, numPlayers, maxPlayers, ping } = this.props.server
 
     if (!port) {
       return (
-        <tr role="row" class="even">
-          <td></td>
-          <td></td>
+        <tr
+          role='row'
+          className='even'
+        >
+          <td />
+          <td />
           <td>Loading...</td>
-          <td></td>
+          <td />
           <td>
-            <img className="pingbars" src="images/2bars.png" /> {ping}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            <img
+              className='pingbars'
+              src='images/2bars.png'
+            /> {ping}</td>
+          <td />
+          <td />
+          <td />
+          <td />
         </tr>
       )
     }
     return (
-      <tr role="row" className="even" onClick={() => this.props.onClick(this.props.server)}>
-        <td></td>
-        <td></td>
+      <tr
+        role='row'
+        className='even'
+        onClick={() => this.props.onClick && this.props.onClick(this.props.server)}
+      >
+        <td>{passworded ? 'Has password' : null}</td>
+        <td />
         <td>{name}</td>
         <td>{hostPlayer}</td>
         <td>
-          <img className="pingbars" src="images/2bars.png" /> {ping}</td>
+          <img
+            className='pingbars'
+            src='images/2bars.png'
+          /> {ping}</td>
         <td>{map}</td>
         <td>Slayer</td>
         <td>None</td>
@@ -47,12 +60,11 @@ class ServerRow extends Component {
       </tr>
     )
   }
-
 }
 
 export default connect(
   null,
   (dispatch, ownProps) => ({
-    getServer: () => dispatch(getServerStatus(ownProps.server.ip))
+    getServer: () => dispatch(getServerStatus(ownProps.server.ip)),
   })
 )(ServerRow)

@@ -28,16 +28,6 @@
     You need to enable JavaScript to run this app.
   </noscript>
 
-  <div id="settingsWindow" class="ui-draggable">
-    <div id="settingsHeader" class="ui-draggable-handle">Settings
-      <div class="closeButton" onclick="$('#settingsWindow').hide();">X</div>
-    </div>
-    <label class="zoomLabel" for="zoomSlider">Zoom</label>
-    <div id="zoomSlider" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-      <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span>
-    </div>
-    <div id="zoomReset" onclick="adjustResolution();">Reset</div>
-  </div>
   <div id="zoomBox">
     <div id="serverTable_wrapper" class="dataTables_wrapper no-footer">
       <div id="serverTable_filter" class="dataTables_filter">
@@ -46,34 +36,6 @@
         </label>
       </div>
       <div class="dataTables_scroll">
-        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
-          <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 100px; padding-right: 0px;">
-            <table class="display dataTable no-footer" width="100%" role="grid" style="margin-left: 0px; width: 100px;">
-              <thead>
-                <tr role="row">
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 7px;"
-                    aria-label=": activate to sort column ascending"></th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 36px;"
-                    aria-label="Type: activate to sort column ascending">Type</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 319px;"
-                    aria-label="Name: activate to sort column ascending">Name</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 132px;"
-                    aria-label="Host: activate to sort column ascending">Host</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 55px;"
-                    aria-label="Ping: activate to sort column ascending">Ping</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 127px;"
-                    aria-label="Map: activate to sort column ascending">Map</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 232px;"
-                    aria-label="Gametype: activate to sort column ascending">Gametype</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 182px;"
-                    aria-label="Variant: activate to sort column ascending">Variant</th>
-                  <th class="sorting" tabindex="0" aria-controls="serverTable" rowspan="1" colspan="1" style="width: 55px;"
-                    aria-label="Players: activate to sort column ascending">Players</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        </div>
         <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: calc(100% - 137px); width: 100%;">
           <div id="root" style="max-height: 100vh;"></div>
 

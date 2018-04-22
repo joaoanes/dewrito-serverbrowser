@@ -2,49 +2,55 @@ import React, { Component } from 'react'
 
 export default () => (Child) => class WithDewRcon extends Component {
   state = {
-    dewRcon: null
+    dewRcon: null,
+    dewRconConnected: false,
   }
 
   dewRconConnected = false
 
-  componentDidMount() {
+  componentDidMount () {
     this.startRconConnection()
   }
 
-  startRconConnection() {
-    const dewRcon = new dewRconHelper();
+  startRconConnection () {
+    const dewRcon = new DewRconHelper()
 
     dewRcon.dewWebSocket.onopen = () => {
-      if (!this.dewRconConnected) {
-         this.dewRconConnected = true;
-      }
-    };
-    dewRcon.dewWebSocket.onerror =  () => {
-      //jQuery("#connectionStatus").text('Not connected. Is the game running?');
-      this.dewRconConnected = false;
-      if (!this.dewRconConnected) {
-        this.startRconConnection();
-      }
-    };
+      this.setState({ dewRconConnected: true })
+    }
+    dewRcon.dewWebSocket.onerror = (err) => {
+      // jQuery("#connectionStatus").text('Not connected. Is the game running?')
+      console.error('dew err', err)
+      this.setState({ dewRconConnected: false })
+      this.startRconConnection()
+    }
     dewRcon.dewWebSocket.onmessage = (message) => {
-      if (typeof dewRcon.callback === 'function')
-        dewRcon.callback(message.data);
-      dewRcon.lastMessage = message.data;
-    };
+      // console.log('message', message)
+      if (typeof dewRcon.callback === 'function') { dewRcon.callback(message.data) }
+      dewRcon.lastMessage = message.data
+    }
     dewRcon.dewWebSocket.onclose = (message) => {
-      //jQuery("#connectionStatus").text('Disconnected');
-      //console.log(message.code);
-      this.sdewRconConnected = false;
+      // jQuery("#connectionStatus").text('Disconnected');
+      // console.log(message.code);
+      this.setState({ dewRconConnected: false })
     }
 
     this.setState({ dewRcon })
   }
 
   render () {
-    const {dewRcon} = this.state
+    const { dew } = this.props
+    const { dewRcon, dewRconConnected } = this.state
 
-    if (!dewRcon) {
-      return <div>Loading</div>
+    if (!dew || !dewRconConnected) {
+      return (
+        <div>
+          <div style={{ height: 20, width: '100%', color: 'white', backgroundColor: 'red' }}>No dew rcons!</div>
+          <Child
+            {...this.props}
+          />
+        </div>
+      )
     }
 
     return (
@@ -57,22 +63,22 @@ export default () => (Child) => class WithDewRcon extends Component {
   }
 }
 
-const dewRconHelper = function () {
-  window.WebSocket = window.WebSocket || window.MozWebSocket;
-  this.dewWebSocket = new WebSocket('ws://127.0.0.1:11776', 'dew-rcon');
-  this.lastMessage = "";
-  this.lastCommand = "";
-  this.callback = {};
-  this.open = false;
+const DewRconHelper = function () {
+  const WebSocket = window.WebSocket || window.MozWebSocket
+  this.dewWebSocket = new WebSocket('ws://127.0.0.1:11776', 'dew-rcon')
+  this.lastMessage = ''
+  this.lastCommand = ''
+  this.callback = {}
+  this.open = false
 
   this.send = function (command, cb) {
     try {
-      this.dewWebSocket.send(command);
-      this.lastCommand = command;
-      this.callback = cb;
-      //console.log(command);
+      this.dewWebSocket.send(command)
+      this.lastCommand = command
+      this.callback = cb
+      // console.log(command);
     } catch (e) {
-      console.log(e);
+      console.error(e)
     }
   }
 }
