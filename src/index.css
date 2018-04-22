@@ -717,7 +717,7 @@ z-index: 10;
 
 #serverTable{
   position: relative;
-  top: -30px;
+
   margin-bottom: -30px;
 }
 
@@ -755,7 +755,9 @@ z-index: 10;
 }
 
 .sorting{
+  margin-top: 15px;
   padding-top: 0;
+  cursor: pointer;
   color: white !important;
   font-family: 'BlenderPro-Medium';
   font-weight: normal !important;

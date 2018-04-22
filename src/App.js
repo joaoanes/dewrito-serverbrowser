@@ -46,6 +46,10 @@ class App extends Component {
     if (newProps.fetching && !this.props.fetching) {
       return true
     }
+
+    if (newProps.filter !== !this.props.filter) {
+      return true
+    }
     const serversSinceLastRender = (newProps.servers.length - this.lastUpdate)
 
     if (serversSinceLastRender > 10) {
@@ -70,7 +74,7 @@ class App extends Component {
 
     return (
       <div>
-        <div>Servers: {serverNumber}, players: {playerNumber}</div>
+        <div style={{ color: 'white' }}>Servers: {serverNumber}, players: {playerNumber}</div>
         <table
           id='serverTable'
           className='display dataTable no-footer'
