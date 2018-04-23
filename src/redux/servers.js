@@ -10,7 +10,7 @@ var dewritoManifests = [
   'https://scooterpsu.github.io/dewrito.json',
 ]
 
-type ServerType = {
+export type ServerType = {
   ip: string,
   port: number,
   name: string,
@@ -20,14 +20,22 @@ type ServerType = {
   mapFile: string,
   gametype: string,
   variant: string,
+  variantType: string,
   status: string, // TODO: enum
-  playerCount: string, // ???
+  numPlayers: string, // ???
   players: [Object], // todo: type
   isFull: boolean,
   version: string,
+  sprintEnabled: boolean,
+  sprintUnlimitedEnabled: boolean,
+  dualWielding: boolean,
+  assassinationEnabled: boolean,
+  eldewritoVersion: number,
+  isDedicated: boolean,
+  passworded: boolean,
 }
 
-const networkQueue = new Semaphore(20)
+let networkQueue = new Semaphore(20)
 
 // setInterval(() => {
 //   console.log(networkQueue.tasks.length)
@@ -40,6 +48,8 @@ export const { Types, Creators } = createActions({
   gotServers: ['servers'],
   getServerStatus: ['serverUrl'],
   gotServerStatus: ['serverData'],
+  setSelected: ['server'],
+  reset: [],
 })
 
 // the initial state of this reducer
@@ -47,7 +57,13 @@ export const INITIAL_STATE = {
   fetching: true,
   masterServersQueried: 0,
   servers: [],
+  selected: null,
 }
+
+const setSelected = (state = INITIAL_STATE, { server }) => ({
+  ...state,
+  selected: server.ip,
+})
 
 const safeRequest = (uri, timeout = 1000) => new Promise((resolve, reject) =>
   networkQueue.acquire().then((release) => {
@@ -64,9 +80,6 @@ const safeRequest = (uri, timeout = 1000) => new Promise((resolve, reject) =>
   })
 )
 
-let serversLeft = 0
-
-// the eagle has landed
 export const getServers = (masterServerUrls = dewritoManifests) =>
   (dispatch, getState) => Promise.all(
 
@@ -93,7 +106,6 @@ export const getServers = (masterServerUrls = dewritoManifests) =>
     .then(() => {
       dispatch(Creators.serversLoaded())
       const { servers } = getState()
-      serversLeft = Object.keys(servers).length
       Object.keys(servers).map((ip) => dispatch(getServerStatus(ip)))
     })
 
@@ -123,6 +135,18 @@ export const getServerStatus = (serverUrl) =>
       ? (false)
       : getServerStatusInternal(dispatch, getState, serverUrl)
   }
+
+export const reset = () => (dispatch) => {
+  dispatch(Creators.reset())
+  networkQueue.tasks = []
+  networkQueue = new Semaphore(20)
+  dispatch(getServers())
+}
+
+export const hardStop = () => {
+  networkQueue.tasks = []
+  networkQueue.count = 0
+}
 
 export const gotServerStatus = (state = INITIAL_STATE, { serverData }) => ({
   ...state,
@@ -177,7 +201,8 @@ export const getFilteredServers = createSelector(
     if (!type && !order) {
       return servers
     }
-    return orderBy(servers, [type], [order])
+
+    return orderBy(servers, [type], [order.toLowerCase()])
   }
 )
 
@@ -191,11 +216,19 @@ export const getPlayerNumber = createSelector(
   (servers) => servers.reduce((acc, server) => acc + server.numPlayers, 0)
 )
 
+export const getSelected = createSelector(
+  getHydratedServers,
+  (state) => state.selected,
+  (servers, selected) => servers.find(({ ip }) => ip === selected) || { players: [] }
+)
+
 // map our action types to our reducer functions
 export const HANDLERS = {
   [Types.GOT_SERVERS]: gotServers,
   [Types.GOT_SERVER_STATUS]: gotServerStatus,
   [Types.SERVERS_LOADED]: serversLoaded,
+  [Types.SET_SELECTED]: setSelected,
+  [Types.RESET]: () => INITIAL_STATE,
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)

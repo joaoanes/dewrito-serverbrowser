@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
 export default () => (Child) => class WithDewRcon extends Component {
+  props: {
+    dew: Object,
+  }
+
   state = {
     dewRcon: null,
     dewRconConnected: false,

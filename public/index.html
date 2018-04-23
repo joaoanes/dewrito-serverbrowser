@@ -20,7 +20,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>React App</title>
+  <title>Dewrito club - server browser</title>
 </head>
 
 <body>
@@ -28,102 +28,9 @@
     You need to enable JavaScript to run this app.
   </noscript>
 
-  <div id="zoomBox">
-    <div id="serverTable_wrapper" class="dataTables_wrapper no-footer">
-      <div id="serverTable_filter" class="dataTables_filter">
-        <label>Search:
-          <input type="search" class="" placeholder="" aria-controls="serverTable">
-        </label>
-      </div>
-      <div class="dataTables_scroll">
-        <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: calc(100% - 137px); width: 100%;">
-          <div id="root" style="max-height: 100vh;"></div>
 
-        </div>
-      </div>
-    </div>
-    <div id="gamecard">
-      <div id="cardheaderborder">
-        <div id="cardheader">
-          <div id="title">
-            <b>Slayer on Guardian</b>
-          </div>
-          <img id="mappic" src="images/maps/guardian.png">
-          <img id="varpic" src="images/gametypes/slayer.png">
-        </div>
-      </div>
-      <div id="scoreboard">
-        <div id="scoreBoardHeader">Scoreboard (+)</div>
-        <table class="statBreakdown" style="display:none;">
-          <thead class="tableHeader">
-            <tr>
-              <th>Name</th>
-              <th>
-                <center>Score</center>
-              </th>
-              <th>
-                <center>K</center>
-              </th>
-              <th>
-                <center>D</center>
-              </th>
-              <th>
-                <center>A</center>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="statLines">Clipzard</td>
-              <td class="statLines">
-                <center>0</center>
-              </td>
-              <td class="statLines">
-                <center>0</center>
-              </td>
-              <td class="statLines">
-                <center>0</center>
-              </td>
-              <td class="statLines">
-                <center>0</center>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="gameinfoborder">
-        <div id="gameinfo">
-          <div id="host">
-            <b>Host: </b>Clipzard</div>
-          <div id="name">
-            <b>Name: </b>HaloOnline Server</div>
-          <div id="sprint">
-            <b>Sprint: </b>
-            Disabled
-          </div>
-          <div id="sprint">
-            <b>Assassinations: </b>
-            Disabled
-          </div>
-          <div id="status">
-            <b>Status: </b>
-            In Lobby
-          </div>
-          <div id="version">
-            <b>Version: </b>0.6.0.0 </div>
-        </div>
-      </div>
-    </div>
-    <div id="backgroundFrame">
-      <div id="backgroundFrameInsert"></div>
-    </div>
-    <!--<button class="browserSwitch feeltrain" onclick="switchBrowser('theFeelTrain');">Switch to theFeelTrain</button>
-          <button class="browserSwitch dewmenu" onclick="switchBrowser('DewMenu');">Switch to DewMenu</button> -->
+  <div id="root" style="height: 100vh;"></div>
 
-    <img id="settingsButton" onclick="$('#settingsWindow').show();" src="images/settings.png">
-    <div id="xboxLabel"></div>
-
-  </div>
 
 
 

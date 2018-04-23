@@ -20,8 +20,8 @@ const DewLoader = () => (Child) => class WithDew extends Component {
     const { dew } = this.state
     if (!dew) {
       return (
-        <div>
-          <div style={{ height: 20, width: '100%', color: 'white', backgroundColor: 'red' }}>No dew!</div>
+        <div style={styles.full}>
+          <div style={{ height: 20, padding: 5, width: '100%', color: 'white', backgroundColor: 'red' }}>No dew?! You won't be able to connect unless you're ingame!</div>
           <Child
             {...this.props}
           />
@@ -29,7 +29,7 @@ const DewLoader = () => (Child) => class WithDew extends Component {
       )
     }
     return (
-      <div>
+      <div style={styles.full}>
         <Child
           {...this.props}
           dew={dew}
@@ -37,6 +37,13 @@ const DewLoader = () => (Child) => class WithDew extends Component {
       </div>
     )
   }
+}
+
+const styles = {
+  full: {
+    width: '100%',
+    height: '100%',
+  },
 }
 
 export default () => compose(
