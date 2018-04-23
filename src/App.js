@@ -64,7 +64,7 @@ class App extends Component {
           <button
             className='closeButton'
             onClick={() => this.escFunction({ keyCode: 27 })}
-          >Back to menu</button>
+          >Back to menu (esc)</button>
         </div>
       </div>
     )

@@ -29,8 +29,6 @@ class App extends Component {
 
   componentDidMount () {
     this.props.getServers()
-
-    document.addEventListener('keydown', this.escFunction, false)
     this.lastUpdate = 0
   }
 
@@ -56,21 +54,6 @@ class App extends Component {
     return false
   }
 
-  componentWillUnmount () {
-    document.removeEventListener('keydown', this.escFunction, false)
-  }
-
-  onClick (server) {
-    this.props.dew.command('connect ' + server.ip)
-    this.props.dew.command('Game.SetMenuEnabled 0')
-  }
-
-  escFunction = (event) => {
-    if (event.keyCode === 27) {
-      this.props.dew.command('Game.SetMenuEnabled 0')
-    }
-  }
-
   renderRow = ({ rowData }) => <ServerRow server={rowData} />
 
   onSortClick = ({ defaultSortDirection, event, sortBy, sortDirection }) => {
@@ -90,6 +73,7 @@ class App extends Component {
 
   connectServer = ({ rowData }) => {
     this.props.dew.command(`connect ${rowData.ip}`)
+    this.props.dew.command('Game.SetMenuEnabled 0')
   }
 
   render () {
