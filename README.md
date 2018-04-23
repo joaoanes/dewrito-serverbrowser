@@ -2,6 +2,8 @@
 
 This is an attempt of creating a halo 3 eldewrito compatible server browser that just allows me to connect to a server and doesn't crash or hang every time.
 
+![This is what a browser looks like!](https://image.ibb.co/irK8EH/dewritolife.png)
+
 It does this mainly by using React, who makes sure the server list is rerendered only when necessary, avoiding unnecessary DOM insertions. It also uses redux in order to keep server information on a reliable place, and ensures a server isn't pinged twice by accident.
 
 Currently deployed [here](http://dewrito.club/) (does not work with passworded servers yet)
